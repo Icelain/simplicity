@@ -2,6 +2,6 @@
 An experimental open source AI search engine
  
 # Todos
-- [x] Create basic wrapper around llm(llama 3 here) 
+- [x] Create basic interface around the ollama api
 - [ ] Implement metasearch engine
 - [ ] Integrate metasearch engine with llm
