@@ -37,7 +37,7 @@ func handleQuery(srv *Server) http.HandlerFunc {
 		var q requestypes.Query
 
 		defer r.Body.Close()
-		if err := json.NewDecoder(r.Body).Decode(q); err != nil {
+		if err := json.NewDecoder(r.Body).Decode(&q); err != nil {
 
 			http.Error(w, "invalid json", http.StatusBadRequest)
 			return
