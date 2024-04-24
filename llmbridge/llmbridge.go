@@ -30,6 +30,8 @@ func (dl *DefaultLLMClient) StreamResponse(ctx context.Context, query string, to
 
 	})
 
+	close(to)
+
 }
 
 func NewDefaultLLMClient(ctx context.Context, model string) *DefaultLLMClient {

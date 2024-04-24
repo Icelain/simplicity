@@ -37,6 +37,7 @@ func handleQuery(srv *Server) http.HandlerFunc {
 		var q requestypes.Query
 
 		defer r.Body.Close()
+
 		if err := json.NewDecoder(r.Body).Decode(&q); err != nil {
 
 			http.Error(w, "invalid json", http.StatusBadRequest)
@@ -55,12 +56,24 @@ func handleQuery(srv *Server) http.HandlerFunc {
 		recvdata := make(chan string)
 
 		srv.Lock()
-		srv.llmclient.StreamResponse(context.Background(), q.SearchQuery, recvdata)
+		go srv.llmclient.StreamResponse(context.Background(), q.SearchQuery, recvdata)
+		srv.Unlock()
 
 		for {
 
-			content := <-recvdata
-			w.Write([]byte(content))
+			content, ok := <-recvdata
+
+			if !ok {
+
+				break
+
+			}
+
+			if _, err := w.Write([]byte(content)); err != nil {
+
+				break
+
+			}
 			flusher.Flush()
 
 		}
