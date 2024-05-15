@@ -1,18 +1,23 @@
 package searx
 
-import (
-
-
-)
+import "net/http"
 
 type SearxEngine struct {
-
 	
+	httpclient *http.Client
+	request *http.Request
 
 }
 
-func (sx *SearxEngine) Search(query string) []byte {
+//func NewSearxEngine() *SearxEngine {
+//
+//	client := &http.Client{}
+//	req, err := http.NewRequest()
+//
+//}
 
-	return make([]byte, 0)	
-
-}
+//func (sx *SearxEngine) Search(query string) []byte {
+//
+//		
+//
+//}
